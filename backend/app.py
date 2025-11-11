@@ -973,7 +973,6 @@ def create_app():
 
 
 if __name__ == "__main__":
-    # Punto de entrada: inicia el servidor para desarrollo
-    # Ejecuta el servidor en localhost:5000 para pruebas locales
-    app = create_app()
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
