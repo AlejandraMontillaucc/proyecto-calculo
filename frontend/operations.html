@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Cabecera del documento: metadatos y enlaces -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplicación de Cálculo Multivariable</title>
+    <!-- Enlace a hoja de estilos externa -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Hoja adicional con estilos de tarjetas y teclado matemático -->
+    <link rel="stylesheet" href="extras.css" />
+    <!-- Librerías externas -->
+    <!-- Plotly.js: para gráficas 3D de superficies -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" defer></script>
+    <!-- Math.js: ruta actualizada del bundle para navegador (v11+) -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@11/lib/browser/math.js" defer></script>
+    <!-- KaTeX: reemplazo de MathJax para renderizado de fórmulas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}], throwOnError: false, errorCallback: function(msg, err){ console.warn('KaTeX:', msg); }});"></script>
+  </head>
+  <body>
+    <!-- Encabezado principal de la aplicación -->
+    <header class="app-header">
+      <h1>Aplicación de Cálculo Multivariable</h1>
+      <p>Herramientas para derivadas parciales, gradiente, evaluación, integrales y Lagrange.</p>
+      <!-- Enlace para regresar al inicio -->
+      <div style="margin-top: 12px;">
+        <a href="index.html" class="secondary-button">Inicio</a>
+      </div>
+    </header>
+
+    <!-- Contenedor principal con diseño organizado -->
+    <main class="container">
+      <!-- Sección de entrada de datos -->
+      <section class="panel" id="input-panel">
+        <h2>Entradas</h2>
+        <!-- Campos para ingresar la función y parámetros -->
+        <div class="form-grid">
+          <!-- Campo de función f(x,y) -->
+          <div class="form-group">
+            <!-- Comentario: Campo principal de la función con id="function" -->
+            <label for="function">Función f(x,y)</label>
+            <input id="function" type="text" class="text-input" placeholder="Ej: x**2 + y**2" />
+            <p class="keyboard-tip">💡 Consejo: Selecciona el campo donde quieres escribir y usa el teclado para insertar expresiones fácilmente.</p>
+            <!-- Teclado matemático interactivo (extendido) -->
+            <div id="math-keyboard" class="math-keyboard">
+              <!-- Operadores -->
+              <button type="button" class="kb-btn" data-insert="+">+</button>
+              <button type="button" class="kb-btn" data-insert="-">-</button>
+              <button type="button" class="kb-btn" data-insert="*">*</button>
+              <button type="button" class="kb-btn" data-insert="/">/</button>
+              <button type="button" class="kb-btn" data-insert="^">^</button>
+              <button type="button" class="kb-btn" data-insert="(">(</button>
+              <button type="button" class="kb-btn" data-insert=")">)</button>
+              <button type="button" class="kb-btn" data-insert="x">x</button>
+              <button type="button" class="kb-btn" data-insert="y">y</button>
+              <button type="button" class="kb-btn" data-insert="pi">pi</button>
+              <button type="button" class="kb-btn" data-insert="E">e</button>
+
+              <!-- Funciones trigonométricas completas -->
+              <button type="button" class="kb-btn" data-insert="sin()">sin()</button>
+              <button type="button" class="kb-btn" data-insert="cos()">cos()</button>
+              <button type="button" class="kb-btn" data-insert="tan()">tan()</button>
+              <button type="button" class="kb-btn" data-insert="csc()">csc()</button>
+              <button type="button" class="kb-btn" data-insert="sec()">sec()</button>
+              <button type="button" class="kb-btn" data-insert="cot()">cot()</button>
+
+              <!-- Inversas -->
+              <button type="button" class="kb-btn" data-insert="asin()">asin()</button>
+              <button type="button" class="kb-btn" data-insert="acos()">acos()</button>
+              <button type="button" class="kb-btn" data-insert="atan()">atan()</button>
+              <button type="button" class="kb-btn" data-insert="acsc()">acsc()</button>
+              <button type="button" class="kb-btn" data-insert="asec()">asec()</button>
+              <button type="button" class="kb-btn" data-insert="acot()">acot()</button>
+
+              <!-- Hiperbólicas -->
+              <button type="button" class="kb-btn" data-insert="sinh()">sinh()</button>
+              <button type="button" class="kb-btn" data-insert="cosh()">cosh()</button>
+              <button type="button" class="kb-btn" data-insert="tanh()">tanh()</button>
+              <button type="button" class="kb-btn" data-insert="csch()">csch()</button>
+              <button type="button" class="kb-btn" data-insert="sech()">sech()</button>
+              <button type="button" class="kb-btn" data-insert="coth()">coth()</button>
+
+              <!-- Log, raíz, valor absoluto -->
+              <button type="button" class="kb-btn" data-insert="log()">log()</button>
+              <button type="button" class="kb-btn" data-insert="exp()">exp()</button>
+              <button type="button" class="kb-btn" data-insert="sqrt()">sqrt()</button>
+              <button type="button" class="kb-btn" data-insert="abs()">abs()</button>
+
+              <!-- Símbolos especiales (para notación visual) -->
+              <button type="button" class="kb-btn" data-insert="π">π</button>
+              <button type="button" class="kb-btn" data-insert="∫">∫</button>
+              <button type="button" class="kb-btn" data-insert="∬">∬</button>
+              <button type="button" class="kb-btn" data-insert="∭">∭</button>
+              <button type="button" class="kb-btn" data-insert="⌠">⌠</button>
+              <button type="button" class="kb-btn" data-insert="⌡">⌡</button>
+              <button type="button" class="kb-btn" data-insert="∂">∂</button>
+              <button type="button" class="kb-btn" data-insert="∇">∇</button>
+              <!-- Botón lambda: inserta la letra griega λ en la posición del cursor -->
+              <button type="button" class="kb-btn" data-insert="λ">λ</button>
+              <button type="button" class="kb-btn" data-insert="→">→</button>
+              <button type="button" class="kb-btn" data-insert="≈">≈</button>
+              <button type="button" class="kb-btn" data-insert="≤">≤</button>
+              <button type="button" class="kb-btn" data-insert="≥">≥</button>
+            </div>
+            <p class="keyboard-tip">💡 Consejo: Usa el teclado para escribir funciones fácilmente.</p>
+          </div>
+
+          <!-- Campo de restricción g(x,y) para Lagrange -->
+          <div class="form-group">
+            <label for="constraint">Restricción g(x,y)</label>
+            <input id="constraint" type="text" class="text-input" placeholder="Ej: x + y - 1" />
+          </div>
+
+          <!-- Punto de evaluación (x0, y0) -->
+          <div class="form-group-inline">
+            <label for="x0">Punto x0</label>
+<input id="x0" type="text" class="text-input" placeholder="Ej: 0.7854 (π/4)" />
+            <label for="y0">Punto y0</label>
+<input id="y0" type="text" class="text-input" placeholder="Ej: 0.5236 (π/6)" />
+          </div>
+
+          <!-- Límites de integración para integral doble -->
+          <!-- Comentario: IDs y tipos actualizados para capturar correctamente los límites -->
+          <div class="form-group-inline">
+            <label for="xStart">Límite x inferior</label>
+            <input id="xStart" type="text" class="text-input" placeholder="Ej: 0" />
+            <label for="xEnd">Límite x superior</label>
+            <input id="xEnd" type="text" class="text-input" placeholder="Ej: 1" />
+          </div>
+          <div class="form-group-inline">
+            <label for="yStart">Límite y inferior</label>
+            <input id="yStart" type="text" class="text-input" placeholder="Ej: 0" />
+            <label for="yEnd">Límite y superior</label>
+            <input id="yEnd" type="text" class="text-input" placeholder="Ej: 2" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección de acciones con botones -->
+      <section class="panel" id="actions-panel">
+        <h2>Acciones</h2>
+        <!-- Botones para invocar las operaciones -->
+        <div class="button-row">
+          <button id="btn-partials" class="primary-button">Calcular derivadas parciales</button>
+          <button id="btn-gradient" class="primary-button">Calcular gradiente</button>
+<button id="btn-evaluate" class="primary-button">🧮 Evaluar función</button>
+          <button id="btn-double-integral" class="primary-button">Calcular integral doble</button>
+          <button id="btn-lagrange" class="secondary-button">Aplicar método de Lagrange</button>
+          <button id="btn-optimize" class="primary-button">Optimización sin restricciones</button>
+          <button id="btn-analyze-domain" class="secondary-button">Analizar dominio y rango</button>
+        </div>
+        <!-- Comentario: Aclaración de uso para integrales indefinidas -->
+        <p class="note-indef">Si no ingresas límites, la aplicación calculará la integral doble indefinida.</p>
+      </section>
+
+      <!-- Sección de resultados -->
+      <section class="panel math-reading-mode" id="results-panel">
+        <h2>🧮 Resultados y proceso</h2>
+        <!-- Contenedor para mostrar resultados de las operaciones -->
+        <div id="results" class="math-card"></div>
+        <!-- Contenedor para proceso paso a paso, preparado para KaTeX -->
+        <div id="process" class="math-card"></div>
+        <!-- Contenedor legado (por compatibilidad) -->
+        <div id="steps" class="explanation-box animate-fade" style="display:none"></div>
+      </section>
+
+      <!-- Contenedor para gráficas 3D -->
+      <section class="panel" id="graph-panel">
+        <h2>Gráficas 3D</h2>
+        <!-- Div para renderizar las gráficas en 3D -->
+        <div id="graph"></div>
+        <!-- Explicación visual de la gráfica -->
+        <div id="graph-expl" class="explanation-box"></div>
+        <!-- Nueva sección de dominio 2D -->
+        <h2>📊 Dominio de f(x,y)</h2>
+        <div id="domain-2d"></div>
+        <div id="domain-2d-expl" class="explanation-box"></div>
+      </section>
+    </main>
+
+    <!-- Enlace al script principal del frontend -->
+    <!-- Nota: Se carga después de las librerías para asegurar disponibilidad -->
+    <!-- Configuración: URL del backend y requerir backend para evitar modo local -->
+    <script>
+      window.APP_BASE_URL = "http://127.0.0.1:5000";
+      window.REQUIRE_BACKEND = true; // obliga a usar backend; sin fallback local
+    </script>
+    <script src="script.js" defer></script>
+    <!-- Renderizado global de KaTeX al cargar la página (refuerzo) -->
+    <script>
+      function renderMathInPage() {
+        if (window.renderMathInElement) {
+          renderMathInElement(document.body, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true }
+            ],
+            throwOnError: false
+          });
+        }
+      }
+      document.addEventListener("DOMContentLoaded", renderMathInPage);
+    </script>
+  </body>
+  </html>

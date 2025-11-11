@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplicación de Cálculo Multivariable</title>
+    <link rel="stylesheet" href="style.css" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  </head>
+  <body>
+    <div class="bg-animated" aria-hidden="true">
+      <span class="shape shape-circle" style="left: 6%; top: 18%;"></span>
+      <span class="shape shape-circle" style="right: 8%; top: 30%;"></span>
+      <span class="shape shape-line" style="left: 14%; bottom: 22%;"></span>
+      <span class="shape shape-line" style="right: 12%; bottom: 16%;"></span>
+      <span class="shape shape-hex" style="left: 42%; top: 12%;"></span>
+      <span class="shape shape-hex" style="right: 38%; bottom: 18%;"></span>
+    </div>
+    <header class="app-header">
+      <div class="animated-icon" aria-hidden="true">
+        <svg class="icon-spin" width="72" height="72" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#ffffff" stroke-width="2" opacity="0.85">
+            <polygon points="32,8 52,20 52,44 32,56 12,44 12,20" fill="none" />
+            <line x1="12" y1="20" x2="32" y2="32" />
+            <line x1="52" y1="20" x2="32" y2="32" />
+            <line x1="12" y1="44" x2="32" y2="32" />
+            <line x1="52" y1="44" x2="32" y2="32" />
+          </g>
+        </svg>
+      </div>
+      <h1 class="hero-title animate-fade">Multiview</h1>
+      <p class="hero-subtitle animate-fade">Explora derivadas, gradientes e integrales con visualizaciones 3D interactivas.</p>
+    </header>
+
+    <main class="container">
+      <section class="panel hero" style="text-align: center;">
+        <p class="hero-message animate-fade" style="margin-bottom: 18px; color: #6b7280;">
+          ¡Bienvenidos! Esta herramienta te permite trabajar con funciones de dos variables y visualizar superficies en 3D de manera sencilla e intuitiva.
+        </p>
+        <a id="startButton" href="operations.html" class="primary-button button-animated animate-slide-up" style="display: inline-block; padding: 14px 28px; font-size: 1rem;">Comenzar</a>
+      </section>
+    </main>
+
+    <!-- Pie de página discreto -->
+    <footer class="app-footer">
+      <small>© 2025 Proyecto Cálculo Multivariable</small>
+    </footer>
+
+    <!-- Script opcional para transición suave al navegar -->
+    <script>
+      // Comentario: Añade un desvanecimiento (fade) al salir hacia operations.html
+      const startBtn = document.getElementById('startButton');
+      if (startBtn) {
+        startBtn.addEventListener('click', function (e) {
+          // Evita navegación inmediata para poder aplicar la transición
+          e.preventDefault();
+          document.body.classList.add('page-fade-out');
+          // Pequeña animación al hacer clic
+          startBtn.classList.add('clicked');
+          setTimeout(() => {
+            window.location.href = startBtn.getAttribute('href');
+          }, 180); // Duración pequeña para que se sienta ágil
+        });
+      }
+    </script>
+
+    <!-- Script ligero en JS puro para generar figuras geométricas flotantes -->
+    <script>
+      // Comentario: Genera formas geométricas (círculos, líneas, hexágonos, triángulos, cuadrados)
+      // que flotan suavemente en el fondo. Sin librerías externas.
+      (function () {
+        const bg = document.querySelector('.bg-animated');
+        if (!bg) return;
+
+        // Comentario: Ajusta el número de formas según el ancho de la pantalla
+        const isSmall = window.matchMedia('(max-width: 600px)').matches;
+        const count = isSmall ? 6 : 12; // Ligero para rendimiento
+
+        const types = ['shape-circle', 'shape-line', 'shape-hex', 'shape-tri', 'shape-square'];
+
+        for (let i = 0; i < count; i++) {
+          const type = types[Math.floor(Math.random() * types.length)];
+          const el = document.createElement('span');
+          el.className = `shape ${type}`;
+
+          // Comentario: Posicionamiento aleatorio dentro del viewport (márgenes seguros)
+          const left = Math.random() * 80 + 10; // 10% a 90%
+          const top = Math.random() * 75 + 10;  // 10% a 85%
+
+          // Comentario: Tamaño relativo mediante escala y opacidad tenue
+          const scale = (Math.random() * 0.7) + 0.6; // 0.6 a 1.3
+          const opacity = (Math.random() * 0.08) + 0.06; // 0.06 a 0.14
+
+          // Comentario: Duración de flotación lenta (30–60s) y leve rotación variable
+          const duration = Math.floor(Math.random() * 30) + 30; // 30 a 60
+          const rotate = Math.floor(Math.random() * 12) - 6; // -6° a 6°
+
+          el.style.left = left + '%';
+          el.style.top = top + '%';
+          el.style.opacity = opacity.toFixed(2);
+          el.style.transform = `translate(-50%, -50%) scale(${scale.toFixed(2)}) rotate(${rotate}deg)`;
+          el.style.animationDuration = duration + 's';
+
+          // Comentario: Inserta la figura en el contenedor del fondo
+          bg.appendChild(el);
+        }
+      })();
+    </script>
+
+    <!-- Renderizado global de KaTeX al cargar la página -->
+    <script>
+      function renderMathInPage() {
+        if (window.renderMathInElement) {
+          renderMathInElement(document.body, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true }
+            ],
+            throwOnError: false
+          });
+        }
+      }
+      document.addEventListener("DOMContentLoaded", renderMathInPage);
+    </script>
+  </body>
+  </html> 

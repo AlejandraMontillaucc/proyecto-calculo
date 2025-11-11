@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: Calculadora Multivariable
+    env: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python backend/app.py
+    staticSites:
+      - name: frontend
+        buildCommand: echo "Frontend Static"
+        staticPublishPath: ./frontend
+        routes:
+          - path: /**
+            staticFile: /index.html

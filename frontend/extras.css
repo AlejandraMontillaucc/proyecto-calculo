@@ -1,0 +1,276 @@
+/* Estilos específicos para tarjetas educativas, KaTeX y teclado matemático */
+
+.result-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(17,24,39,0.08);
+  padding: 16px 20px;
+  margin: 10px 0 16px;
+  border: 1px solid #e9ecef;
+}
+
+.result-card h3 {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.math-expression {
+  font-size: 1.05rem;
+}
+
+.highlight-number {
+  color: #007BFF;
+  font-weight: 700;
+}
+
+/* Espaciado adecuado para contenido renderizado con KaTeX en tarjetas y pasos */
+.result-card p, #steps p, #steps li {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Mejora estética para el párrafo del resultado con KaTeX */
+.result-card p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #222;
+  text-align: center;
+}
+
+/* Ajustes para la caja de explicación ya existente */
+.explanation-box h3, .explanation-box h4 { margin-top: 0; }
+
+/* Teclado matemático */
+.math-kb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Teclado extendido con diseño moderno */
+.math-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.math-keyboard button {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+}
+.math-keyboard button:hover {
+  background: #007BFF;
+  color: #fff;
+  border-color: #007BFF;
+}
+.keyboard-tip {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 6px;
+}
+
+/* Modo compacto móvil */
+@media (max-width: 600px) {
+  .math-keyboard {
+    justify-content: center;
+  }
+  .math-keyboard button {
+    flex: 1 1 calc(33.33% - 8px); /* 3 columnas */
+  }
+}
+
+.kb-btn {
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  color: #333;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.2s ease;
+}
+.kb-btn:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+.kb-btn:active { transform: scale(0.98); }
+
+.kb-tip {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #556;
+}
+
+/* Animación suave para la aparición de resultados */
+.animate-fade { animation: fadeIn 220ms ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* ============================= */
+/* Botón “Ver más” y Modal       */
+/* ============================= */
+.see-more-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+.see-more-btn:hover {
+  background-color: #0056b3;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 700px;
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.modal-content h2 {
+  margin-bottom: 12px;
+}
+.modal-content .modal-body {
+  line-height: 1.6;
+  font-size: 1rem;
+}
+.close-modal {
+  margin-top: 16px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.close-modal:hover {
+  background: #c82333;
+}
+
+.graph-explanation {
+  background: rgba(255,255,255,0.9);
+  border-left: 4px solid #007BFF;
+  padding: 16px;
+  margin-top: 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Estilos KaTeX: centrado y separación vertical de fórmulas */
+.katex-display {
+  display: block;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.math-expression .katex,
+.result-card .katex {
+  display: block;
+  margin: 10px 0;
+  font-size: 1.1em;
+  color: #2d2d2d;
+}
+
+/* Contenedor de la gráfica 3D sin caja blanca */
+#plot3d {
+  min-height: 320px;
+  border-radius: 10px;
+}
+
+/* Mensaje de error de la gráfica (profesional, discreto) */
+.plot-error {
+  color: #c00;
+  text-align: center;
+  margin: 8px 0 0;
+}
+
+/* ============================= */
+/* Modo lectura y tarjetas tema  */
+/* ============================= */
+
+/* Comentario: Contenedor de modo lectura matemática */
+.math-reading-mode {
+  background: #f9fafb;
+  padding: 8px;
+  border-radius: 12px;
+}
+.math-reading-mode .result-card,
+.math-reading-mode .explanation-box {
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+/* Comentario: Variantes de tarjeta por módulo para diferenciar visualmente */
+.result-card--partials   { border-left: 4px solid #3b82f6; }
+.result-card--gradient   { border-left: 4px solid #14b8a6; }
+.result-card--evaluation { border-left: 4px solid #8b5cf6; }
+.result-card--integral   { border-left: 4px solid #10b981; }
+.result-card--lagrange   { border-left: 4px solid #7c3aed; }
+.result-card--optimize   { border-left: 4px solid #7c3aed; }
+.result-card--limits     { border-left: 4px solid #0ea5e9; }
+.result-card--range      { border-left: 4px solid #6366f1; }
+.result-card--domain     { border-left: 4px solid #64748b; }
+
+/* Comentario: Tarjeta de resumen al final de cada bloque */
+.summary-card {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #1E64D2; /* azul destacado */
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+/* ============================= */
+/* Tarjetas matemáticas globales */
+/* ============================= */
+.math-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 20px;
+  margin-top: 16px;
+}
+.math-card h3 {
+  color: #2d2d2d;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.summary-card .summary-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.summary-card .summary-value {
+  font-size: 1.2rem;
+  color: #1E64D2;
+  font-weight: 700;
+}
+.summary-card p { margin: 6px 0; line-height: 1.6; }
