@@ -22,9 +22,12 @@ from backend.math_operations import (
 # Los comentarios están en español para explicar cada parte del código.
 
 def create_app():
-    # Crea y configura la aplicación Flask
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="../frontend", static_url_path="/")
 
+    @app.route("/")
+    def serve_index():
+        return app.send_static_file("index.html")
+    # Crea y configura la aplicación Flask
     # Habilita CORS para permitir solicitudes del frontend (todos los orígenes por defecto)
     CORS(app)
 

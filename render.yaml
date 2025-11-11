@@ -1,18 +1,7 @@
 services:
-  # Backend Flask
   - type: web
-    name: calculadora-backend
+    name: calculadora-multivariable
     env: python
     plan: free
     buildCommand: pip install -r backend/requirements.txt
     startCommand: python backend/app.py
-
-  # Frontend estático (Angular, React, etc.)
-  - type: static
-    name: calculadora-frontend
-    buildCommand: echo "Frontend listo"
-    staticPublishPath: frontend/dist  # ajusta según dónde queda tu build (ej: dist/frontend)
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
