@@ -723,18 +723,18 @@ def create_app():
                 # Denominadores distintos de cero
                 denom = sp.denom(sp.together(f))
                 if denom != 1:
-                    conditions.append(f"denominador \( {sp.latex(denom)} \) ≠ 0")
+                    conditions.append(r"denominador \( " + sp.latex(denom) + r" \) \neq 0")
                 # Argumentos de log positivos
                 for node in f.atoms(sp.Function):
                     if getattr(node, 'func', None) == sp.log:
                         arg = node.args[0]
-                        conditions.append(f"\( {sp.latex(arg)} > 0 \)")
+                        conditions.append(r"\( " + sp.latex(arg) + r" > 0 \)")
                     if getattr(node, 'func', None) == sp.sqrt:
                         arg = node.args[0]
-                        conditions.append(f"\( {sp.latex(arg)} \ge 0 \)")
+                        conditions.append(r"\( " + sp.latex(arg) + r" \ge 0 \)")
             except Exception:
                 pass
-            domain_conditions = ", ".join(conditions) if conditions else "Sin restricciones adicionales (posible continuidad en \(\mathbb{R}^2\))."
+            domain_conditions = ", ".join(conditions) if conditions else r"Sin restricciones adicionales (posible continuidad en \(\mathbb{R}^2\))."
 
             # Estimar rango con cuadrícula numérica sobre [-10, 10]
             minv, maxv = None, None
